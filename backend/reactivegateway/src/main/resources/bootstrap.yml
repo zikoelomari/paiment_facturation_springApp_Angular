@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: reactivegateway
+  cloud:
+  config:
+    uri: http://localhost:8888
+    enabled: true
+    fail-fast: false
+      retry:
+        max-attempts: 3
+        initial-interval: 1000
+        max-interval: 5000
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+# Le bootstrap est chargé avant l'application pour récupérer la config centralisée.

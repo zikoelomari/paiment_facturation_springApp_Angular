@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Historique des Paiements</h2>
+    <button class="btn btn-primary" routerLink="/paiements/new">
+      <i class="bi bi-plus-circle me-2"></i>Nouveau Paiement
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des paiements...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error" class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Facture ID</th>
+              <th>Montant</th>
+              <th>Méthode</th>
+              <th>Statut</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paiement of paiements">
+              <td>{{ paiement.id }}</td>
+              <td>
+                <a [routerLink]="['/factures', paiement.factureId]" class="text-decoration-none">
+                  {{ paiement.factureId }}
+                </a>
+              </td>
+              <td>{{ paiement.montant | number:'1.2-2' }} €</td>
+              <td>{{ paiement.methodePaiement }}</td>
+              <td>
+                <span [ngClass]="getStatutClass(paiement.statut)">
+                  {{ paiement.statut }}
+                </span>
+              </td>
+              <td>{{ paiement.datePaiement | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des détails du client...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && client" class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>Détails du Client</h3>
+      <div>
+        <button class="btn btn-outline-primary me-2" (click)="onEdit()">
+          <i class="bi bi-pencil me-2"></i>Modifier
+        </button>
+        <button class="btn btn-outline-secondary" (click)="onBack()">
+          <i class="bi bi-arrow-left me-2"></i>Retour à la liste
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <h5 class="text-muted">Informations personnelles</h5>
+            <hr>
+            <p><strong>Nom:</strong> {{ client.firstName }} {{ client.lastName }}</p>
+            <p><strong>Email:</strong> {{ client.email }}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <h5 class="text-muted">Informations du compte</h5>
+            <hr>
+            <p><strong>Statut:</strong> 
+              <span [ngClass]="getStatusClass(client.status)">
+                {{ client.status }}
+              </span>
+            </p>
+            <p><strong>Membre depuis:</strong> {{ client.createdAt | date:'mediumDate' }}</p>
+            <p *ngIf="client.updatedAt">
+              <strong>Dernière mise à jour:</strong> {{ client.updatedAt | date:'medium' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

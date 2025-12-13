@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: notificationservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/notificationservice_db
+    username: postgres
+    password: Zak20.
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
+    defer-datasource-initialization: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 7010
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    root: ERROR
+    com.example.notificationservice: DEBUG
+    org.springframework.boot.web.embedded.tomcat: INFO
